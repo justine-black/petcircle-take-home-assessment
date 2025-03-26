@@ -1,0 +1,1155 @@
+{
+	"info": {
+		"_postman_id": "7a14b986-954d-4a00-a13c-cf20ad7af096",
+		"name": "Pet Circle take-home assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43473774"
+	},
+	"item": [
+		{
+			"name": "Petstore v2 API Testing",
+			"item": [
+				{
+					"name": "Test Scenarios",
+					"item": [
+						{
+							"name": "pet",
+							"item": [
+								{
+									"name": "Create PET - POST /pet",
+									"item": [
+										{
+											"name": "Successfully create available pet",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"var requestBodyJson = JSON.parse(pm.request.body.raw)\r",
+															"var responseJson = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Test response data (ID, name, status)\", () => {\r",
+															"    pm.expect(responseJson.id).to.eql(pm.variables.get(\"random_id\"));\r",
+															"    pm.expect(responseJson.name).to.eql(requestBodyJson.name);\r",
+															"    pm.expect(responseJson.status).to.eql(\"available\");\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"random_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{random_id}},\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"Cute Available Pet\",\r\n  \"photoUrls\": [\r\n    \"testPhotoURL\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"testTag\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Successfully create pending pet",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"random_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"var requestBodyJson = JSON.parse(pm.request.body.raw)\r",
+															"var responseJson = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Test response data (ID, name, status)\", () => {\r",
+															"    pm.expect(responseJson.id).to.eql(pm.variables.get(\"random_id\"));\r",
+															"    pm.expect(responseJson.name).to.eql(requestBodyJson.name);\r",
+															"    pm.expect(responseJson.status).to.eql(\"pending\");\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{random_id}},\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"Cute Pending Pet\",\r\n  \"photoUrls\": [\r\n    \"testPhotoURL\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"testTag\"\r\n    }\r\n  ],\r\n  \"status\": \"pending\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Successfully create sold pet",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"var requestBodyJson = JSON.parse(pm.request.body.raw)\r",
+															"var responseJson = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Test response data (ID, name, status)\", () => {\r",
+															"    pm.expect(responseJson.id).to.eql(pm.variables.get(\"random_id\"));\r",
+															"    pm.expect(responseJson.name).to.eql(requestBodyJson.name);\r",
+															"    pm.expect(responseJson.status).to.eql(\"sold\");\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"random_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{random_id}},\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"Cute Sold Pet\",\r\n  \"photoUrls\": [\r\n    \"testPhotoURL\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"testTag\"\r\n    }\r\n  ],\r\n  \"status\": \"sold\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Successfully create pet without category",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"var requestBodyJson = JSON.parse(pm.request.body.raw)\r",
+															"var responseJson = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Test there's no category\", () => {\r",
+															"    pm.expect(responseJson).to.not.have.property('category')\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Test response data (ID, name, status)\", () => {\r",
+															"    pm.expect(responseJson.id).to.eql(pm.variables.get(\"random_id\"));\r",
+															"    pm.expect(responseJson.name).to.eql(requestBodyJson.name);\r",
+															"    pm.expect(responseJson.status).to.eql(requestBodyJson.status);\r",
+															"});\r",
+															"\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"random_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{random_id}},\r\n  \"name\": \"Cute Sold Pet\",\r\n  \"photoUrls\": [\r\n    \"testPhotoURL\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"testTag\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Successfully create pet without tags",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"var requestBodyJson = JSON.parse(pm.request.body.raw)\r",
+															"var responseJson = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Test there's no tags\", () => {\r",
+															"    pm.expect(responseJson).to.have.property('tags').with.lengthOf(0)\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Test response data (ID, name, status)\", () => {\r",
+															"    pm.expect(responseJson.id).to.eql(pm.variables.get(\"random_id\"));\r",
+															"    pm.expect(responseJson.name).to.eql(requestBodyJson.name);\r",
+															"    pm.expect(responseJson.status).to.eql(requestBodyJson.status);\r",
+															"});\r",
+															"\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"random_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{random_id}},\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"Cute Sold Pet\",\r\n  \"photoUrls\": [\r\n    \"testPhotoURL\"\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Successfully create pet without photoUrls",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"var requestBodyJson = JSON.parse(pm.request.body.raw)\r",
+															"var responseJson = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Test there's no photoUrls\", () => {\r",
+															"    pm.expect(responseJson).to.have.property('photoUrls').with.lengthOf(0)\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Test response data (ID, name, status)\", () => {\r",
+															"    pm.expect(responseJson.id).to.eql(pm.variables.get(\"random_id\"));\r",
+															"    pm.expect(responseJson.name).to.eql(requestBodyJson.name);\r",
+															"    pm.expect(responseJson.status).to.eql(requestBodyJson.status);\r",
+															"});\r",
+															"\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"random_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{random_id}},\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"Cute Sold Pet\",\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"testTag\"\r\n    }\r\n  ],\r\n  \"status\": \"sold\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Empty body",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 415\", function () {\r",
+															"    pm.response.to.have.status(415);\r",
+															"});\r",
+															"\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid pet status",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"random_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 405\", function () {\r",
+															"    pm.response.to.have.status(405);\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{random_id}},\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"Cute Pet\",\r\n  \"photoUrls\": [\r\n    \"testPhotoURL\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"testTag\"\r\n    }\r\n  ],\r\n  \"status\": \"invalid\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "No pet name",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"random_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 405\", function () {\r",
+															"    pm.response.to.have.status(405);\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{random_id}},\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"testPhotoURL\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"testTag\"\r\n    }\r\n  ],\r\n  \"status\": \"invalid\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Read pet - GET /pet/{id}",
+									"item": [
+										{
+											"name": "Successfully fetch existing pet",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Test pet id\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData.id).to.eql(pm.variables.get(\"existing_pet_id\"));\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"existing_pet_id\", 1234567890)"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseURL}}/pet/{{existing_pet_id}}",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet",
+														"{{existing_pet_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Non-existing pet id",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 404\", function () {\r",
+															"    pm.response.to.have.status(404);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Error message: Pet not found\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData.message).to.eql(\"Pet not found\")\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"non_existing_pet_id\", 0987654321)"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseURL}}/pet/{{non_existing_pet_id}}",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet",
+														"{{non_existing_pet_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Non-integer pet id",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Error message: Invalid ID supplied\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData.message).to.eql(\"Invalid ID supplied\")\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"non_existing_pet_id\", 0987654321)"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseURL}}/pet/invalid",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet",
+														"invalid"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "No pet id supplied",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 405\", function () {\r",
+															"    pm.response.to.have.status(405);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"non_existing_pet_id\", 0987654321)"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseURL}}/pet/",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet",
+														""
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Update pet - PUT /pet",
+									"item": [
+										{
+											"name": "Successfully update pet",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"var requestBodyJson = JSON.parse(pm.request.body.raw)\r",
+															"var responseJson = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Test response data \", () => {\r",
+															"    pm.expect(responseJson.id).to.eql(pm.variables.get(\"existing_pet_id\"));\r",
+															"    pm.expect(responseJson.name).to.eql(requestBodyJson.name);\r",
+															"    pm.expect(responseJson.status).to.eql(requestBodyJson.status);\r",
+															"    pm.expect(responseJson.category).to.eql(requestBodyJson.category);\r",
+															"    pm.expect(responseJson.tags).to.eql(requestBodyJson.tags);\r",
+															"    pm.expect(responseJson.photoUrls).to.eql(requestBodyJson.photoUrls);\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"existing_pet_id\", 1234567890)"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{existing_pet_id}},\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"{{$randomWord}}\"\r\n  },\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"photoUrls\": [\r\n    \"{{$randomUrl}}\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"{{$randomWord}}\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Non-existing pet id",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"non_existing_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 404\", function () {\r",
+															"    pm.response.to.have.status(404);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Error message: Pet not found\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData.message).to.eql(\"Pet not found\")\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": {{non_existing_id}},\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"{{$randomWord}}\"\r\n  },\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"photoUrls\": [\r\n    \"{{$randomUrl}}\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"{{$randomWord}}\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid ID",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"non_existing_id\", _.random(1000000000,9999999999));"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Error message: Invalid ID supplied\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData.message).to.eql(\"Invalid ID supplied\")\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": b2f0c142-49be-4333-8395-162900e345b1,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"{{$randomWord}}\"\r\n  },\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"photoUrls\": [\r\n    \"{{$randomUrl}}\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"{{$randomWord}}\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseURL}}/pet",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Delete pet - DELETE /pet/{petId}",
+									"item": [
+										{
+											"name": "Successfully delete existing pet",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"existing_pet_id\", 1234512345);\r",
+															"\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Response message: <deleted_pet_id>\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData.message).to.eql(\"\" + pm.variables.get(\"existing_pet_id\"))\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseURL}}/pet/{{existing_pet_id}}",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet",
+														"{{existing_pet_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete newly created pet",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"new_pet_id\", _.random(1000000000,9999999999));\r",
+															"\r",
+															"var body = {\r",
+															"    \"id\": pm.variables.get(\"existing_pet_id\"),\r",
+															"    \"category\": {\r",
+															"        \"id\": 0,\r",
+															"        \"name\": \"string\"\r",
+															"    },\r",
+															"    \"name\": \"Cute Pet\",\r",
+															"    \"photoUrls\": [\r",
+															"        \"testPhotoURL\"\r",
+															"    ],\r",
+															"    \"tags\": [\r",
+															"        {\r",
+															"        \"id\": 0,\r",
+															"        \"name\": \"testTag\"\r",
+															"        }\r",
+															"    ],\r",
+															"    \"status\": \"available\"\r",
+															"    }\r",
+															"\r",
+															"var request = {\r",
+															"    url: pm.variables.get(\"baseURL\")+\"/pet\",\r",
+															"    method: \"POST\",\r",
+															"    header: {\r",
+															"        \"Content-Type\": \"application/json\"\r",
+															"    },\r",
+															"    body: {\r",
+															"        mode: \"raw\",\r",
+															"        raw: JSON.stringify(body)\r",
+															"    }\r",
+															"}\r",
+															"\r",
+															"pm.sendRequest(request, function (err, res) {\r",
+															"    if (err) {\r",
+															"        console.log(\"Error occured: \", err)\r",
+															"    }\r",
+															"})\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Response message: <deleted_pet_id>\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData.message).to.eql(\"\" + pm.variables.get(\"new_pet_id\"))\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseURL}}/pet/{{new_pet_id}}",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet",
+														"{{new_pet_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Non-existing pet id",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.variables.set(\"non_existing_pet_id\", 0987654321)"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 404\", function () {\r",
+															"    pm.response.to.have.status(404);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Error message: Pet not found\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData.message).to.eql(\"Pet not found\")\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "api_key",
+														"value": "special-key",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{baseURL}}/pet/{{non_existing_pet_id}}",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet",
+														"{{non_existing_pet_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid ID",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Error message: Invalid ID supplied\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    pm.expect(jsonData.message).to.eql(\"Invalid ID supplied\")\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "api_key",
+														"value": "special-key",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{baseURL}}/pet/{{$guid}}",
+													"host": [
+														"{{baseURL}}"
+													],
+													"path": [
+														"pet",
+														"{{$guid}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "store",
+							"item": []
+						},
+						{
+							"name": "user",
+							"item": []
+						}
+					]
+				}
+			],
+			"description": "## Requirements\n\n1\\. **Setup**: Access the Swagger Petstore API documentation [https://petstore.swagger.io/](https://petstore.swagger.io/)  \n2\\. **Scenario Creation**: Using the documentation, devise test scenarios for each CRUD  \noperation (Create, Read, Update, Delete) for the \"Pets\" resource  \n3\\. **Create**: Design scenarios to test the creation of pets in the Petstore. Consider  \nvarious inputs and edge cases.  \n4\\. **Read**: Create scenarios to test retrieving pet details from the Petstore. Include  \nscenarios for existing and non-existing pets.  \n5\\. **Update**: Design scenarios to test updating existing pet details in the Petstore. Include  \nscenarios for updating different attributes.  \n6\\. **Delete**: Develop scenarios to test deleting pets from the Petstore. Consider  \nscenarios for deleting existing and non-existing pets.EndFragment"
+		}
+	]
+}
